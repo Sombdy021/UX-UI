@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ 
+.active a{
+    background: black;;
+    color: white;
+}
+
+.page-item:hover a{
+    background: black;
+    color: white;
+}
+
+.page-item a{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+ 
+
+.-z-index-1{
+    z-index: -1;
+}
+
+.z-index-5{
+    z-index: 5;
+}
+
+ 
+
+.bg-movie{
+    background-image: url('../../public/static/bg-movie.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg{
+    background-image: url('../../public/static/bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.bg-movie_invert{
+    background-image: url('../../public/static/bg-movie_invert.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg_invert{
+    background-image: url('../../public/static/bg_invert.png');
+}
