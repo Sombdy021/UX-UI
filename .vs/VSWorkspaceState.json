@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\public\\static",
+    "\\src",
+    "\\src\\components",
+    "\\src\\components\\Card",
+    "\\src\\components\\Header",
+    "\\src\\pages",
+    "\\src\\pages\\api",
+    "\\src\\pages\\movie"
+  ],
+  "SelectedNode": "\\src\\hooks\\useComments.jsx",
+  "PreviewInSolutionExplorer": false
+}

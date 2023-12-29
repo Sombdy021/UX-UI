@@ -58,12 +58,12 @@ export default function Home() {
             <div className="flex justify-center mt-3  max-md:flex-col max-md:items-center">
               <div className="relative max-md:mb-4">
                 <span
-                  className={`absolute -top-4 left-7 ${
+                  className={`absolute -top-5 left-7 ${
                     currentTheme == "black"
                       ? "bg-trasparent text-white -top-5"
                       : ""
                   }`}>
-                  query
+                  Query
                 </span>
                 <input
                   placeholder="type film"
@@ -75,12 +75,12 @@ export default function Home() {
 
               <div className="relative max-md:mb-4">
                 <span
-                  className={`absolute -top-4 left-7 ${
+                  className={`absolute -top-5 left-7 ${
                     currentTheme == "black"
                       ? "bg-trasparent text-white -top-5"
                       : ""
                   }`}>
-                  genre
+                  Genre
                 </span>
                 <select
                   className="border px-5 py-2 border-black mx-5 w-60 rounded-md"
@@ -92,12 +92,12 @@ export default function Home() {
               </div>
               <div className="relative max-md:mb-4">
                 <span
-                  className={`absolute -top-4 left-7 ${
+                  className={`absolute -top-5 left-7 ${
                     currentTheme == "black"
                       ? "bg-trasparent text-white -top-5"
                       : ""
                   }`}>
-                  sort
+                  Sorting
                 </span>
                 <select
                   className="border px-5 py-2 border-black mx-5 w-60 rounded-md"
