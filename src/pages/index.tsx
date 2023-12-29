@@ -5,6 +5,7 @@ import { Hourglass } from "react-loader-spinner";
 import { Header } from "@/components/Header/Header";
 import { Theme } from "@/store/theme";
 import { useDebounce } from "../hooks/useDebounce";
+import { genres, sortTypes } from "../../constants";
 import { Footer } from "@/components/Footer";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -12,25 +13,30 @@ export default function Home() {
   const [films, setFilms] = useState([]);
   const [currentPage, setCurrentPage] = useState(2);
   const [checked, setChecked] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [sortBy, setSortBy] = useState("date_added");
+  const [genre, setGenre] = useState("all");
   const [query, setQuery] = useState("");
   const { currentTheme } = useContext(Theme);
   const debouncedQuery = useDebounce(query, 1000);
 
   useEffect(() => {
     const fetch = async () => {
-      setLoading(true);
-      const response = await getFilms(String(1), query);
+      const response = await getFilms(String(1), genre, debouncedQuery, sortBy);
       setFilms(response.movies);
-      setLoading(false);
     };
     fetch();
-  }, [debouncedQuery]);
+  }, [genre, debouncedQuery, sortBy]);
 
   const fetchMoreData = async () => {
     setCurrentPage((prev) => prev + 1);
-    const response = await getFilms(String(currentPage), query);
-    if (response?.movies) {
+    const response = await getFilms(
+      String(currentPage),
+      genre,
+      debouncedQuery,
+      sortBy
+    );
+
+    if (response.movies) {
       setFilms((prev) => [...prev, ...response.movies]);
     }
   };
@@ -42,19 +48,74 @@ export default function Home() {
 
       <main className="min-h-screen flex justify-center">
         <section className="flex flex-col items-center container py-20">
-          <div className="flex items-center-center w-full mb-10 flex-col">
+          <div className="flex items-center-center w-full mb-5 flex-col">
             <h1
               className={`text-5xl  mx-auto justify-center ${
                 currentTheme == "black" ? "text-white" : "text-black"
               } mb-2 font-extrabold`}>
               FILMS
             </h1>
-            <input
-              placeholder="type film"
-              className="border px-5 py-2 border-black mx-5"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
+            <div className="flex justify-center mt-3  max-md:flex-col max-md:items-center">
+              <div className="relative max-md:mb-4">
+                <span
+                  className={`absolute -top-4 left-7 ${
+                    currentTheme == "black"
+                      ? "bg-trasparent text-white -top-5"
+                      : ""
+                  }`}>
+                  query
+                </span>
+                <input
+                  placeholder="type film"
+                  className="border px-5 py-2 border-black mx-5 w-60 rounded-md "
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="relative max-md:mb-4">
+                <span
+                  className={`absolute -top-4 left-7 ${
+                    currentTheme == "black"
+                      ? "bg-trasparent text-white -top-5"
+                      : ""
+                  }`}>
+                  genre
+                </span>
+                <select
+                  className="border px-5 py-2 border-black mx-5 w-60 rounded-md"
+                  onChange={(e) => setGenre(e.target.value)}>
+                  {genres.map((genre, index) => (
+                    <option key={index}>{genre}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="relative max-md:mb-4">
+                <span
+                  className={`absolute -top-4 left-7 ${
+                    currentTheme == "black"
+                      ? "bg-trasparent text-white -top-5"
+                      : ""
+                  }`}>
+                  sort
+                </span>
+                <select
+                  className="border px-5 py-2 border-black mx-5 w-60 rounded-md"
+                  onChange={(e) => {
+                    let selectedIndex = e.target.selectedIndex;
+                    let value = e.target.options[selectedIndex].value;
+                    setSortBy(value);
+                  }}>
+                  {sortTypes.map((type, index) => (
+                    <option
+                      key={index}
+                      value={type.value}>
+                      {type.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
           {films?.length > 0 ? (
             <InfiniteScroll
